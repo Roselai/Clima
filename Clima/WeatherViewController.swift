@@ -14,8 +14,6 @@ import SwiftyJSON
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate {
     
-    
-    
     //Constants
     let WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "e72ca729af228beabd5d20e3b7749713"
@@ -82,7 +80,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
     func updateUIWithWeatherData(){
         cityLabel.text = weatherDataModel.city
-        temperatureLabel.text = "\(weatherDataModel.temperature)"
+        temperatureLabel.text = "\(weatherDataModel.temperature)℉" 
         weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
     }
     
@@ -112,7 +110,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //MARK: - Change City Delegate methods
     /***************************************************************/
     func userEnteredANewCityName(city: String) {
-        print(city)
+        
+        let params : [String: String] = ["q" : city, "appid" : APP_ID]
+        getWeatherData(url: WEATHER_URL, parameters: params)
     }
     
     
